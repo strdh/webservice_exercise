@@ -1,0 +1,290 @@
+{
+    "openapi" : "3.0.3",
+    "info": {
+        "title": "My API",
+        "description": "This webservice i made for exercise",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080"
+        }
+    ],
+    "paths": {
+        "/players" : {
+            "get" : {
+                "tags": ["Player Api"],
+                "summary" : "get all player",
+                "description": "this path will return all player data",
+                "operationId": "getPlayers",
+                "responses": {
+                    "200" : {
+                        "description": "success get all player",
+                        "content": {
+                            "application/json" : {
+                                "schema" : {
+                                    "type": "object",
+                                    "properties": {
+                                        "code" : {
+                                            "type" : "integer",
+                                            "example" : 200
+                                        },
+                                        "status" : {
+                                            "type" : "string",
+                                            "example" : "success"
+                                        },
+                                        "data" : {
+                                            "type" : "array",
+                                            "$ref": "#/components/schemas/Player" 
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post" : {
+                "tags": ["Player Api"],
+                "summary" : "Create new player",
+                "description": "create new record",
+                "operationId": "createPlayer",
+                "requestBody" : {
+                    "content" : {
+                        "application/json" : {
+                            "schema" :{
+                                "type" : "object",
+                                "properties" : {
+                                    "name" : {
+                                        "type" : "string"
+                                    },
+                                    "position" : {
+                                        "type" : "string"
+                                    },
+                                    "height" : {
+                                        "type" : "number"
+                                    },
+                                    "weight" : {
+                                        "type" : "number"
+                                    },
+                                    "birth_date" : {
+                                        "type" : "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200" : {
+                        "description": "success create new player",
+                        "content": {
+                            "application/json" : {
+                                "schema" : {
+                                    "type": "object",
+                                    "properties": {
+                                        "code" : {
+                                            "type" : "integer",
+                                            "example" : 200
+                                        },
+                                        "status" : {
+                                            "type" : "string",
+                                            "example" : "success"
+                                        },
+                                        "data" : {
+                                            "type" : "object",
+                                            "$ref": "#/components/schemas/Player"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/players/{playerId}" : {
+            "get" : {
+                "tags": ["Player Api"],
+                "summary" : "get player by id",
+                "description": "this path will return player data by id",
+                "operationId": "getPlayerById",
+                "parameters" : [
+                    {
+                        "name" : "playerId",
+                        "in" : "path",
+                        "required" : true,
+                        "description" : "id of player",
+                        "schema" : {
+                            "type" : "number",
+                            "example" : 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200" : {
+                        "description": "success get player by id",
+                        "content": {
+                            "application/json" : {
+                                "schema" : {
+                                    "type": "object",
+                                    "properties": {
+                                        "code" : {
+                                            "type" : "integer",
+                                            "example" : 200
+                                        },
+                                        "status" : {
+                                            "type" : "string",
+                                            "example" : "success"
+                                        },
+                                        "data" : {
+                                            "type" : "object",
+                                            "$ref": "#/components/schemas/Player"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put" : {
+                "tags": ["Player Api"],
+                "summary" : "update player by id",
+                "description": "update player data by id",
+                "operationId": "updatePlayerById",
+                "parameters": [
+                    {
+                        "name" : "playerId",
+                        "in" : "path",
+                        "required" : true,
+                        "description" : "id of player",
+                        "schema" : {
+                            "type" : "number",
+                            "example" : 1
+                        }
+                    }
+                ],
+                "requestBody" : {
+                    "content" : {
+                        "application/json" : {
+                            "schema" :{
+                                "type" : "object",
+                                "properties" : {
+                                    "name" : {
+                                        "type" : "string"
+                                    },
+                                    "position" : {
+                                        "type" : "string"
+                                    },
+                                    "height" : {
+                                        "type" : "number"
+                                    },
+                                    "weight" : {
+                                        "type" : "number"
+                                    },
+                                    "birth_date" : {
+                                        "type" : "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200" : {
+                        "description": "success update player by id",
+                        "content": {
+                            "application/json" : {
+                                "schema" : {
+                                    "type": "object",
+                                    "properties": {
+                                        "code" : {
+                                            "type" : "integer",
+                                            "example" : 200
+                                        },
+                                        "status" : {
+                                            "type" : "string",
+                                            "example" : "success"
+                                        },
+                                        "data" : {
+                                            "type" : "object",
+                                            "$ref": "#/components/schemas/Player"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete" : {
+                "tags": ["Player Api"],
+                "summary" : "delete player by id",
+                "description": "delete player data by id",
+                "operationId": "deletePlayerById",
+                "parameters": [
+                    {
+                        "name" : "playerId",
+                        "in" : "path",
+                        "required" : true,
+                        "description" : "id of player",
+                        "schema" : {
+                            "type" : "number",
+                            "example" : 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200" : {
+                        "description": "success delete player by id",
+                        "content": {
+                            "application/json" : {
+                                "schema" : {
+                                    "type": "object",
+                                    "properties": {
+                                        "code" : {
+                                            "type" : "integer",
+                                            "example" : 200
+                                        },
+                                        "status" : {
+                                            "type" : "string",
+                                            "example" : "success"
+                                        },
+                                        "data" : {
+                                            "type" : "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Player": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "position": {
+                        "type": "string"
+                    },
+                    "height": {
+                        "type": "number"
+                    },
+                    "weight": {
+                        "type": "number"
+                    },
+                    "birth_date": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
