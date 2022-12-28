@@ -70,3 +70,44 @@ func (service *PlayerServiceImpl) Update(ctx context.Context, request webRequest
 
     return helper.ToPlayerResponse(player)
 }
+
+func (service *PlayerServiceImpl) Delete(ctx context.Context, playerId int) {
+    tx, err := service.DB.Begin()
+    helper.PanicIfError(err)
+    defer helper.CommitOrRollback(tx)
+
+    player, err := service.PlayerRepository.FindById(ctx, tx, playerId)
+    if err != nil {
+        panic(exception.NewNotFoundError(fmt.Sprintf("Player is not found with id %d", playerId)))
+    }
+
+    return service.PlayerRepository.Delete(ctx, tx, player)
+}
+
+func (service *PlayerServiceImpl) FindById(ctx context.Contex, playerId int) webResponse.PlayerResponse {
+    tx, err := service.DB.Begin()
+    helper.PanicIfError(err)
+    defer helper.CommitOrRollback(tx)
+
+    player, err := service.PlayerRepository.FindById(ctx, tx, playerId)
+    if err != nil {
+        panic(exception.NewNotFoundError(fmt.Sprintf("Player is not found with id %d", playerId)))
+    }
+
+    return helper.ToPlayerResponse(player)
+}
+
+func (service *PlayerServiceImpl) GetAll(ctx context.Context) []webResponse.PlayerResponse {
+    tx, err := service.DB.Begin()
+    helper.PanicIfError(err)
+    defer helper.CommitOrRollback(tx)
+
+    players := service.PlayerRepository.GetAll(ctx, tx)
+    
+    var playerResponses []webResponse.playerResponses
+    for _, player := range players {
+        playerResponses = append(playerResponses, helper.ToPlayerResponse(player))
+    }
+
+    return playerResponses
+}
