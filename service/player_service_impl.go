@@ -22,7 +22,7 @@ type PlayerServiceImpl struct {
 func NewPlayerService(playerRepository repository.PlayerRepository, db *sql.DB, validate *validator.Validate) PlayerService {
     return &PlayerServiceImpl{
         PlayerRepository: playerRepository,
-        DB: DB,
+        DB: db,
         Validate: validate,
     }
 }
@@ -81,10 +81,10 @@ func (service *PlayerServiceImpl) Delete(ctx context.Context, playerId int) {
         panic(exception.NewNotFoundError(fmt.Sprintf("Player is not found with id %d", playerId)))
     }
 
-    return service.PlayerRepository.Delete(ctx, tx, player)
+    service.PlayerRepository.Delete(ctx, tx, player)
 }
 
-func (service *PlayerServiceImpl) FindById(ctx context.Contex, playerId int) webResponse.PlayerResponse {
+func (service *PlayerServiceImpl) FindById(ctx context.Context, playerId int) webResponse.PlayerResponse {
     tx, err := service.DB.Begin()
     helper.PanicIfError(err)
     defer helper.CommitOrRollback(tx)
@@ -104,7 +104,7 @@ func (service *PlayerServiceImpl) GetAll(ctx context.Context) []webResponse.Play
 
     players := service.PlayerRepository.GetAll(ctx, tx)
     
-    var playerResponses []webResponse.playerResponses
+    var playerResponses []webResponse.PlayerResponse
     for _, player := range players {
         playerResponses = append(playerResponses, helper.ToPlayerResponse(player))
     }

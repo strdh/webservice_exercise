@@ -28,7 +28,7 @@ func (repository *PlayerRepositoryImpl) Create(ctx context.Context, tx *sql.Tx, 
     return player
 }
 
-func (repository *PlayerRepositoryImpl) Update(ctx context.Context(), tx *sql.Tx, player model.Player) model.Player {
+func (repository *PlayerRepositoryImpl) Update(ctx context.Context, tx *sql.Tx, player model.Player) model.Player {
     sql := "UPDATE players SET name = ?, position = ?, height = ?, weight = ?, birth_date = ? WHERE id = ?"
 
     _, err := tx.ExecContext(ctx, sql, player.Name, player.Position, player.Height, player.Weight, player.BirthDate, player.Id)
@@ -44,7 +44,7 @@ func (repository *PlayerRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx, 
     helper.PanicIfError(err)
 }
 
-func (repository *PlayerRepositoryImpl) FindById(ctx, context.Context(), tx *sql.Tx, playerId int) (model.Player, error) {
+func (repository *PlayerRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx, playerId int) (model.Player, error) {
     sql := "SELECT * FROM players WHERE id = ?"
     rows, err := tx.QueryContext(ctx, sql, playerId)
     helper.PanicIfError(err)
@@ -54,22 +54,23 @@ func (repository *PlayerRepositoryImpl) FindById(ctx, context.Context(), tx *sql
     if rows.Next() {
         err := rows.Scan(&player.Id, &player.Name, &player.Position, &player.Height, &player.Weight, &player.BirthDate)
         helper.PanicIfError(err)
+        return player, nil
     } else {
         return player, errors.New(fmt.Sprintf("Player with id %d not found", playerId))
     }
 }
 
-func (repository *PlayaerRepostioryImpl) GetAll(ctx context.Context, tx *sql.Tx)[]model.Player {
+func (repository *PlayerRepositoryImpl) GetAll(ctx context.Context, tx *sql.Tx)[]model.Player {
     sql := "SELECT * FROM players"
     rows, err := tx.QueryContext(ctx, sql)
     helper.PanicIfError(err)
-    defer.rows.Close()
+    defer rows.Close()
 
     var players []model.Player 
     for rows.Next() {
         player := model.Player{}
         err := rows.Scan(&player.Id, &player.Name, &player.Position, &player.Height, &player.Weight, &player.BirthDate)
-        helper.PniacIfError(err)
+        helper.PanicIfError(err)
 
         players = append(players, player)
     }

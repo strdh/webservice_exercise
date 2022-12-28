@@ -12,7 +12,7 @@ func ErrorHandler(writer http.ResponseWriter, request *http.Request, err interfa
         return
     }
 
-    if validateionErrors(writer, request, err) {
+    if validationErrors(writer, request, err) {
         return
     }
 
@@ -24,7 +24,7 @@ func validationErrors(writer http.ResponseWriter, request *http.Request, err int
 
     if ok {
         writer.Header().Set("Content-Type", "application/json")
-        writer.WriterHeader(http.StatusBadRequest)
+        writer.WriteHeader(http.StatusBadRequest)
 
         webResponse := webResponse.WebResponse{
             Code: http.StatusBadRequest,
@@ -59,7 +59,7 @@ func notFoundError(writer http.ResponseWriter, request *http.Request, err interf
     }
 }
 
-func internalServerError(writer http.ResponseWriter, request *http.Request err interface{}) {
+func internalServerError(writer http.ResponseWriter, request *http.Request, err interface{}) {
     writer.Header().Set("Content-Type", "application/json")
     writer.WriteHeader(http.StatusInternalServerError)
 

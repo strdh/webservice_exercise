@@ -2,13 +2,13 @@ package app
 
 import (
 	"database/sql"
-	"restapi/helper"
+	"exercise/webservice/helper"
 	"time"
 )
 
 func NewDB() *sql.DB {
 	db, err := sql.Open("mysql", "root@tcp(localhost:3306)/go_webservice")
-	helper.CheckError(err)
+	helper.PanicIfError(err)
 
 	db.SetMaxIdleConns(5)
 	db.SetMaxOpenConns(20)

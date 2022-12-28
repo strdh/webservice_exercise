@@ -5,9 +5,9 @@ import (
     "net/http"
 )
 
-func ReadFromRequestBody(request *http.Request, result interface{}) error {
+func ReadFromRequestBody(request *http.Request, result interface{}) {
     decoder := json.NewDecoder(request.Body) 
-    err := decode.Decode(result)
+    err := decoder.Decode(result)
     PanicIfError(err)
 }
 

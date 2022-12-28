@@ -1,7 +1,7 @@
 package webResponse
 
 type PlayerResponse struct {
-    Id string `json:"id"`
+    Id int `json:"id"`
     Name string `json:"name"`
     Position string `json:"position"`
     Height float32 `json:"height"`
