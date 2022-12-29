@@ -27,14 +27,18 @@ func main() {
         Handler: router,
     }
 
-    picture := `
-                __
-              / _)
-     _/\/\/\_/ /
-   _|         /
- _|  (  | (  |
-/__.-'|_|--|_|
-SERVER STARTED
+    picture := `       
+                ,_     _
+                |\\_,-~/
+                / _  _ |    ,--.
+                (  @  @ )   / ,-'
+                \\  _T_/-._( (
+                /         ` + "`" + `. \\
+                |         _  \\ 
+                \\ \\ ,  /    |
+                || |-_\\__   /
+                ((_/` + "`" + `(____,-'
+                SERVER STARTED
 `
 
 	// print the picture

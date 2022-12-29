@@ -73,7 +73,7 @@ func (controller *PlayerControllerImpl) FindById(writer http.ResponseWriter, req
     playerResponse := controller.PlayerService.FindById(request.Context(), playerId)
     webResponse := webResponse.WebResponse{
         Code: 200,
-        Status: "Player found successfully",
+        Status: "Player found",
         Data: playerResponse,
     }
 
