@@ -15,3 +15,12 @@ func ToPlayerResponse(player model.Player) webResponse.PlayerResponse {
         BirthDate: player.BirthDate,
     }
 }
+
+func ToUserResponse(user model.User) webResponse.UserResponse {
+    return webResponse.UserResponse{
+        Id: user.Id,
+        Name: user.Name,
+        Username: user.Username,
+        Password: user.Password,
+    }
+}

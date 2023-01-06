@@ -15,7 +15,9 @@ type PlayerControllerImpl struct {
     PlayerService service.PlayerService
 }
 
-func NewPlayerController(playerService service.PlayerService) PlayerController {
+
+func NewPlayerController() PlayerController {
+    playerService := service.NewPlayerService()
     return &PlayerControllerImpl {
         PlayerService: playerService,
     }

@@ -4,6 +4,8 @@ import (
     "context"
     "fmt"
     "database/sql"
+     _ "github.com/go-sql-driver/mysql"
+    "exercise/webservice/app/config"
     "exercise/webservice/web/webRequest"
     "exercise/webservice/web/webResponse"
     "exercise/webservice/model"
@@ -19,7 +21,10 @@ type PlayerServiceImpl struct {
     Validate *validator.Validate
 }
 
-func NewPlayerService(playerRepository repository.PlayerRepository, db *sql.DB, validate *validator.Validate) PlayerService {
+func NewPlayerService() PlayerService {
+    playerRepository := repository.NewPlayerRepository() 
+    var db *sql.DB = app.NewDB()
+    var validate *validator.Validate = validator.New()
     return &PlayerServiceImpl{
         PlayerRepository: playerRepository,
         DB: db,

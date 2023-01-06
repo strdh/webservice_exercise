@@ -25,7 +25,7 @@ import (
 )
 
 func setupTestDB() *sql.DB {
-    db, err := sql.Open("mysql", "root@tcp(localhost:3306)/database_name_test")
+    db, err := sql.Open("mysql", "root@tcp(localhost:3306)/go_webservice_test")
 	helper.PanicIfError(err)
 
 	db.SetMaxIdleConns(5)
